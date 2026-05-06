@@ -20,6 +20,6 @@ Kritik sorun yoksa 'Sorun bulunamadı.' yaz. Türkçe yanıt ver." 2>/dev/null \
 echo "──────────────────────────────────────────────────"
 echo ""
 echo "⚠️  Review tamamlandı. Devam etmek için Enter'a bas, iptal için Ctrl+C."
-read -r
+read -r < /dev/tty || true
 
 exit 0

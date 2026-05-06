@@ -9,6 +9,7 @@ use App\Http\Requests\AnalyzeRecipeRequest;
 use App\Jobs\AnalyzeRecipePhotoJob;
 use App\Repositories\Contracts\RecipeAnalysisRepositoryInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -24,13 +25,14 @@ final class RecipeAnalysisController extends Controller
         return Inertia::render('Recipe/Upload');
     }
 
-    public function store(AnalyzeRecipeRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(AnalyzeRecipeRequest $request): RedirectResponse
     {
         $path = $request->file('photo')->store('recipes/'.$request->user()->id, 'public');
 
         $analysis = $this->repository->create([
             'user_id' => $request->user()->id,
             'photo_path' => $path,
+            'photo_disk' => 'public',
             'status' => AnalysisStatus::Pending,
         ]);
 

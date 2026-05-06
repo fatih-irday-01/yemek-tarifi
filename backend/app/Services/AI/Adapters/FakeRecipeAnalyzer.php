@@ -9,7 +9,7 @@ use App\Services\AI\Contracts\RecipeAnalyzerInterface;
 
 final class FakeRecipeAnalyzer implements RecipeAnalyzerInterface
 {
-    public function analyze(string $imageBase64, string $mimeType): RecipeAnalysisResult
+    public function analyze(string $disk, string $path): RecipeAnalysisResult
     {
         return new RecipeAnalysisResult(
             foodName: 'Test Yemeği',
