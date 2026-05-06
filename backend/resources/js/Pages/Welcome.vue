@@ -75,7 +75,7 @@ defineProps({
                     <p class="mt-6 text-lg text-gray-600">
                         Yemeğinin fotoğrafını yükle, yapay zeka saniyeler içinde malzemeleri, pişirme adımlarını ve besin değerlerini analiz etsin.
                     </p>
-                    <div v-if="canLogin" class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+                    <div v-if="canLogin || canRegister" class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                         <Link
                             v-if="canRegister"
                             :href="route('register')"
@@ -145,7 +145,7 @@ defineProps({
             <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-bold text-white">Hemen Deneyin</h2>
                 <p class="mt-4 text-lg text-accent">Ücretsiz hesap oluşturun, ilk analizinizi yapın.</p>
-                <div v-if="canLogin" class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+                <div v-if="canLogin || canRegister" class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                     <Link
                         v-if="canRegister"
                         :href="route('register')"
