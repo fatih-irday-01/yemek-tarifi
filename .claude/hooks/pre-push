@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+set -e
+
+FOUND=0
+
+REMOTE="$1"
+URL="$2"
+
+while read -r LOCAL_REF LOCAL_SHA REMOTE_REF REMOTE_SHA; do
+    # Branch silme işlemi — atla
+    if [ "$LOCAL_SHA" = "0000000000000000000000000000000000000000" ]; then
+        continue
+    fi
+
+    # İlk push ise tüm commit, değilse sadece yeni commit'ler
+    if [ "$REMOTE_SHA" = "0000000000000000000000000000000000000000" ]; then
+        RANGE="$LOCAL_SHA"
+    else
+        RANGE="$REMOTE_SHA..$LOCAL_SHA"
+    fi
+
+    FILES=$(git diff --name-only "$RANGE" 2>/dev/null || true)
+
+    for FILE in $FILES; do
+        [ -f "$FILE" ] || continue
+
+        BASENAME=$(basename "$FILE")
+
+        # Gerçek .env dosyası (.env.example hariç)
+        if [[ "$BASENAME" == ".env" ]] || \
+           [[ "$BASENAME" == .env.* && "$BASENAME" != ".env.example" ]]; then
+            echo "🚨 HATA: Gerçek .env dosyası commit'e girmiş: $FILE"
+            FOUND=1
+        fi
+
+        # Tehlikeli dosya uzantıları ve isimleri
+        if [[ "$FILE" =~ \.(pem|key|p12|pfx|ppk)$ ]] || \
+           [[ "$BASENAME" =~ ^(id_rsa|id_ed25519|id_ecdsa|id_dsa)(\.pub)?$ ]]; then
+            echo "🚨 HATA: Private key dosyası tespit edildi: $FILE"
+            FOUND=1
+        fi
+
+        # İçerik taraması
+        if [ -r "$FILE" ]; then
+
+            # Private key içeriği
+            if grep -qP "-----BEGIN (RSA|EC|DSA|OPENSSH) PRIVATE KEY-----" "$FILE" 2>/dev/null; then
+                echo "🚨 HATA: Private key içeriği bulundu: $FILE"
+                FOUND=1
+            fi
+
+            # AWS Access Key ID
+            if grep -qP "AKIA[0-9A-Z]{16}" "$FILE" 2>/dev/null; then
+                echo "🚨 HATA: AWS Access Key tespit edildi: $FILE"
+                FOUND=1
+            fi
+
+            # AWS Secret Access Key
+            if grep -qiP "aws_secret_access_key\s*=\s*\S{20,}" "$FILE" 2>/dev/null; then
+                echo "🚨 HATA: AWS Secret Key tespit edildi: $FILE"
+                FOUND=1
+            fi
+
+            # Generic API token / secret (gerçek değer atanmış)
+            if grep -qiP "(api[_-]?key|api[_-]?token|secret[_-]?key|access[_-]?token)\s*=\s*['\"][A-Za-z0-9+/]{20,}" \
+                "$FILE" 2>/dev/null; then
+                echo "🚨 HATA: API token/secret tespit edildi: $FILE"
+                FOUND=1
+            fi
+
+            # GitHub / GitLab personal access token
+            if grep -qP "gh[pousr]_[A-Za-z0-9]{36,}" "$FILE" 2>/dev/null; then
+                echo "🚨 HATA: GitHub token tespit edildi: $FILE"
+                FOUND=1
+            fi
+
+            # Generic Bearer token uzun string
+            if grep -qiP "bearer\s+[A-Za-z0-9\-_]{40,}" "$FILE" 2>/dev/null; then
+                echo "🚨 HATA: Bearer token tespit edildi: $FILE"
+                FOUND=1
+            fi
+
+        fi
+    done
+done
+
+if [ "$FOUND" -eq 1 ]; then
+    echo ""
+    echo "❌ Push engellendi — hassas veri tespit edildi."
+    echo ""
+    echo "Çözüm:"
+    echo "  1. Hassas veriyi dosyadan kaldır"
+    echo "  2. .gitignore'a ekle (örn: echo '.env' >> .gitignore)"
+    echo "  3. git rm --cached <dosya>  (takipten çıkar)"
+    echo "  4. git commit --amend       (son commit'i düzelt)"
+    echo ""
+    exit 1
+fi
+
+echo "✅ Güvenlik kontrolü geçti — push devam ediyor."
+exit 0

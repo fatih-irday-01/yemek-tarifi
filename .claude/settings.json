@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(php artisan:*)",
+      "Bash(composer:*)",
+      "Bash(npm:*)",
+      "Bash(docker compose:*)",
+      "Bash(vendor/bin/behat:*)",
+      "Bash(npx playwright:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(vendor/bin/pest:*)",
+      "Bash(vendor/bin/phpunit:*)",
+      "Bash(vendor/bin/pint:*)",
+      "Bash(vendor/bin/phpstan:*)",
+      "Bash(grep:*)",
+      "Bash(cat:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mkdir -p .claude/memory"
+          }
+        ]
+      }
+    ]
+  }
+}

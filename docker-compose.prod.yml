@@ -1,0 +1,18 @@
+services:
+
+  app:
+    build:
+      target: production
+    volumes: []
+
+  queue:
+    build:
+      target: production
+    volumes: []
+    command: ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+    volumes:
+      - ./docker/supervisor/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf:ro
+
+  nginx:
+    ports:
+      - "80:80"

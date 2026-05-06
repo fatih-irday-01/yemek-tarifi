@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -e
+
+STAGED_DIFF=$(git diff --cached --unified=3)
+
+if [ -z "$STAGED_DIFF" ]; then
+    exit 0
+fi
+
+echo ""
+echo "🔍 Code review çalışıyor..."
+echo "──────────────────────────────────────────────────"
+
+echo "$STAGED_DIFF" | claude -p \
+    "Bu staged git diff'ini incele. \
+Potansiyel bug, güvenlik açığı ve kod kalitesi sorunlarını maddeler halinde listele. \
+Kritik sorun yoksa 'Sorun bulunamadı.' yaz. Türkçe yanıt ver." 2>/dev/null \
+    || echo "⚠️  claude CLI bulunamadı — review atlandı."
+
+echo "──────────────────────────────────────────────────"
+echo ""
+echo "⚠️  Review tamamlandı. Devam etmek için Enter'a bas, iptal için Ctrl+C."
+read -r
+
+exit 0
