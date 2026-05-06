@@ -84,6 +84,7 @@ defineProps({
                             Ücretsiz Başla
                         </Link>
                         <Link
+                            v-if="canLogin"
                             :href="route('login')"
                             class="w-full rounded-xl border-2 border-primary/20 px-8 py-3.5 text-base font-semibold text-primary transition hover:border-primary/50 hover:bg-primary/5 sm:w-auto"
                         >
@@ -154,6 +155,7 @@ defineProps({
                         Kayıt Ol — Ücretsiz
                     </Link>
                     <Link
+                        v-if="canLogin"
                         :href="route('login')"
                         class="rounded-xl border-2 border-white/40 px-8 py-3.5 text-base font-semibold text-white transition hover:border-white hover:bg-white/10"
                     >
