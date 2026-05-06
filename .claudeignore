@@ -3,16 +3,13 @@ node_modules/
 vendor/
 
 # Build ve Çıktı Dosyaları
-public/build/
-public/storage/
-dist/
-stats.json
+**/public/build/
 
 # Loglar ve Geçici Dosyalar
-storage/logs/*.log
-storage/framework/sessions/
-storage/framework/views/
-storage/framework/cache/
+**/storage/logs/*.log
+**/storage/framework/sessions/
+**/storage/framework/views/
+**/storage/framework/cache/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -33,5 +30,5 @@ Thumbs.db
 .git/
 
 # Test Coverage
-tests/_output/
-tests/_support/_generated/
+**/tests/_output/
+**/tests/_support/_generated/

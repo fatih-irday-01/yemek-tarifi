@@ -1,5 +1,15 @@
 {
   "mcpServers": {
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from", "serena-agent",
+        "serena",
+        "start-mcp-server",
+        "--project-from-cwd",
+        "--context", "claude-code"
+      ]
+    },
     "github": {
       "command": "docker",
       "args": [

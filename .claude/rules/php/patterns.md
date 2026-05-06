@@ -4,37 +4,31 @@ globs: ["**/*.php"]
 alwaysApply: false
 ---
 
+<!-- Applies to: **/*.php -->
+
 # PHP Patterns
 
 ## Controller Responsibility
-Controllers handle **transport only**: authentication, validation delegation, response serialization, HTTP status codes.
-
-Business logic goes in Services or Actions. Controllers must not contain:
-- Direct DB queries
-- Complex conditionals
-- Multi-step business operations
+Controllers: transport only (auth, validation delegation, response serialization, HTTP status).
+Must not contain: direct DB queries, complex conditionals, multi-step business operations.
 
 ## Data Transfer Objects (DTOs)
 - Replace associative arrays with DTOs at service boundaries.
-- Use `final readonly class` with constructor property promotion.
-- Include `fromArray(array $data): self` and `toArray(): array` methods.
+- `final readonly class` with constructor property promotion.
+- Include `fromArray(array $data): self` and `toArray(): array`.
 - Throw exceptions on invalid input — never return null.
 
 ## Value Objects
-Use value objects for constrained domain concepts (e.g., Money, DateRange, Email). They enforce invariants in the constructor.
+Use for constrained domain concepts (Money, DateRange, Email). Enforce invariants in constructor.
 
 ## Dependency Injection
-- Inject dependencies via constructor using interfaces.
-- Never use `app()` helper or `resolve()` inside business logic.
+- Inject via constructor using interfaces.
+- Never use `app()` or `resolve()` inside business logic.
 - Register bindings in `RepositoryServiceProvider`.
 
 ## Domain / ORM Separation
-- Keep ORM models (Eloquent) separate from domain logic.
-- Models handle persistence, casts, and relationships only.
-- Domain logic lives in Actions, Services, or Domain objects.
+- Eloquent models: persistence, casts, relationships only.
+- Domain logic: Actions, Services, or Domain objects.
 
 ## Third-Party Adapters
-Wrap external SDKs behind adapters/interfaces. This isolates vendor-specific code and makes testing easier.
-
-## Reference
-- For full Laravel implementation patterns: see `skills/laravel-patterns/SKILL.md`
+Wrap external SDKs behind adapters/interfaces.

@@ -5,9 +5,10 @@ Sen deneyimli bir tech lead'sin. **Kullanıcının tek muhatabısın.**
 ## Oturum Başlangıcı — Her Zaman Yap
 
 Göreve başlamadan önce:
-```bash
-cat .claude/memory/session.md
-```
+1. **Serena aktifse:** `check_onboarding_performed()` → `false` dönerse `onboarding()` çalıştır
+2. `read_memory('project-context')` → `.serena/memories/project-context.md`
+3. `.claude/memory/session.md` → son oturum notu
+
 Dosya doluysa içeriği oku ve bağlamı devam ettir. Boşsa yeni oturum olarak başla.
 
 ## Oturum Sonu — Her Görev Bitiminde Yaz
@@ -88,6 +89,20 @@ Değiştirmek istediğin bir şey var mı?
 ```
 
 Kullanıcı onay vermeden **implement etme.** Bu, /plan modundaki gibi bir tartışma fırsatıdır — teknoloji, kapsam veya yaklaşım değiştirilebilir.
+
+---
+
+## Araştırma — Serena MCP Aktifse (Önce Yap)
+
+Görevi analiz etmeden önce, Serena araçlarıyla projeyi hızlıca tara:
+
+```
+1. get_symbols_overview('backend/app')   → mevcut sınıf yapısını gör
+2. find_symbol('<ilgili_kavram>')         → mevcut implementasyon var mı?
+3. find_referencing_symbols('<sembol>')  → etki alanını ölç
+```
+
+Bu adım, pattern dosyalarını okumadan önce mevcut kodu anlayarak gereksiz yeniden yazmayı önler.
 
 ---
 

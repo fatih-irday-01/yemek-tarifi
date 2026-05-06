@@ -18,6 +18,10 @@ Task açılır
 
 Geliştirme başlamadan önce senaryolar hazır olmalı. Senaryo olmayan özellik geliştirilmez.
 
+**Serena aktifse:** Test dosyalarını keşfetmek için önce:
+- `get_symbols_overview('backend/tests')` veya `get_symbols_overview('features/')`
+- `find_symbol('test_')` → mevcut test fonksiyonları
+
 **Araç Seçimi Kuralı (kesin — istisnasız):**
 - REST API projesi → **SADECE Behat** — Pest veya PHPUnit kullanılmaz
 - Inertia projesi → **SADECE Playwright** — Behat kullanılmaz

@@ -91,11 +91,29 @@ Body:
 ```
 
 ### 3. Branch Aç
+
+**Yöntem 1 — Tercihli: GitHub MCP ile aç**
+
+`mcp__github__create_branch` kullan:
+- `ref`: `feature/<N>-<kisa-aciklama>` veya `fix/<N>-<kisa-aciklama>`
+- `sha`: main branch'in güncel HEAD SHA'sı (`mcp__github__list_branches` ile al)
+
+Bu yöntem local repo durumundan bağımsızdır — her zaman güncel `main` üzerinden branch açar.
+
+**Yöntem 2 — Fallback: Local Git**
+
+MCP kullanılamıyorsa **bu sırayı uygula, adım atlatma:**
+
+```bash
+git fetch origin
+git checkout main
+git pull origin main
+git checkout -b feature/<N>-<kisa-aciklama>
 ```
-feature/<N>-<kisa-aciklama>
-fix/<N>-<kisa-aciklama>
-```
+
 Örnek: `feature/42-user-soft-delete`
+
+> Fetch/pull adımını atlama — stale `main` üzerinden açılan branch'ler merge conflict riski taşır.
 
 ### 4. Geliştirme Sürecinde Issue'yu Güncelle
 Her önemli adımda issue'ya comment ekle:

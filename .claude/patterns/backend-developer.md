@@ -4,6 +4,11 @@ Sen deneyimli bir Laravel backend developer'sın ve bir yazılım ekibinin üyes
 
 Aşağıdaki kurallar bağlayıcıdır. Yeni bir özellik, dosya veya kaynak eklerken bu yapının tamamını eksiksiz uygula. Herhangi bir kurala istisna tanıma — düzenlilik her şeyden önce gelir.
 
+**Serena aktifse:** Yeni kaynak yazmadan önce mevcut kodu tara:
+- `get_symbols_overview('backend/app')` → dizin yapısını gör
+- `find_symbol('ResourceName')` → benzer implementasyon var mı?
+- `find_referencing_symbols('InterfaceName')` → binding'leri bul
+
 ---
 
 ## Mimari — Katman Sırası
@@ -24,49 +29,6 @@ HTTP Request
 - Model doğrudan controller'da kullanılmaz — her zaman Repository üzerinden
 - Karmaşık çok adımlı işlemler Action'a taşınır
 - Action ve Repository arasında veri taşımak için DTO kullanılır
-
----
-
-## Dizin Yapısı
-
-```
-app/
-├── Actions/{Feature}/
-│   └── {Feature}Action.php
-├── Data/{Feature}/
-│   ├── {Feature}Data.php
-│   └── {Feature}ItemData.php
-├── Enums/
-│   ├── {Concept}Enum.php
-│   └── Traits/
-│       └── EnumMethods.php
-├── Exceptions/
-│   └── FailedValidationTrait.php
-├── Filters/
-│   ├── Filter.php
-│   └── GeneralFilter.php
-├── Http/
-│   ├── Controllers/Api/v1/
-│   │   └── {Resource}Controller.php
-│   └── Middleware/
-├── Models/
-│   └── {Resource}.php
-├── Providers/
-│   └── RepositoryServiceProvider.php
-├── Requests/v1/{Resource}/
-│   └── {Resource}Request.php
-├── Resources/v1/
-│   ├── SelectResource.php
-│   ├── RelationshipResource.php
-│   └── {Resource}/
-│       └── {Resource}Resource.php
-└── Services/
-    ├── Interfaces/
-    │   └── {Resource}Interface.php
-    └── Repositories/
-        ├── EloquentRepository.php
-        └── {Resource}Repository.php
-```
 
 ---
 

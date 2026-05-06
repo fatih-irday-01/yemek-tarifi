@@ -1,7 +1,9 @@
 ---
-description: Security requirements — no hardcoded secrets, input validation, incident response protocol
+description: Security — no hardcoded secrets, input validation, incident response
 alwaysApply: true
 ---
+
+<!-- Applies to: all files -->
 
 # Security
 
@@ -16,14 +18,13 @@ alwaysApply: true
 - [ ] All API endpoints have rate limiting
 
 ## Secret Handling
-- Secrets live in `.env` files or secret managers — never in code.
-- Verify required env vars exist at application startup.
-- Rotate any credential that may have been exposed immediately.
+- Secrets in `.env` or secret managers — never in code.
+- Verify required env vars at application startup.
+- Rotate any exposed credential immediately.
 
 ## Incident Response
-When a vulnerability is discovered:
-1. Stop work immediately.
-2. Escalate to **security-reviewer** agent.
-3. Fix critical issues before proceeding.
-4. Rotate exposed credentials.
-5. Audit the entire codebase for similar patterns.
+- Stop work immediately.
+- Escalate to **security-reviewer** agent.
+- Fix critical issues before proceeding.
+- Rotate exposed credentials.
+- Audit codebase for similar patterns.
