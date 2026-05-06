@@ -15,7 +15,7 @@ use RuntimeException;
  */
 final class GroqRecipeAnalyzer implements RecipeAnalyzerInterface
 {
-    private const MODEL = 'llama-3.2-90b-vision-preview';
+    private const MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
 
     /**
      * @param  string  $disk  Storage disk adı

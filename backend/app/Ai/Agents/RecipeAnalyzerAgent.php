@@ -16,7 +16,7 @@ use Laravel\Ai\Promptable;
  * Class RecipeAnalyzerAgent
  */
 #[Provider(Lab::Groq)]
-#[Model('llama-3.2-90b-vision-preview')]
+#[Model('meta-llama/llama-4-scout-17b-16e-instruct')]
 final class RecipeAnalyzerAgent implements Agent, HasStructuredOutput
 {
     use Promptable;
