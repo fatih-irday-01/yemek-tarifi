@@ -8,7 +8,12 @@ use App\Http\Controllers\RecipeHistoryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::middleware('guest')->get('/', fn () => Inertia::render('Welcome'))->name('home');
+Route::middleware('guest')->get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin'    => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
+})->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
