@@ -9,6 +9,11 @@ use App\Services\AI\Contracts\RecipeAnalyzerInterface;
 
 final class FakeRecipeAnalyzer implements RecipeAnalyzerInterface
 {
+    /**
+     * @param string $disk
+     * @param string $path
+     * @return RecipeAnalysisResult
+     */
     public function analyze(string $disk, string $path): RecipeAnalysisResult
     {
         return new RecipeAnalysisResult(

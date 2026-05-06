@@ -9,12 +9,22 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ *
+ */
 final class RecipeHistoryController extends Controller
 {
+    /**
+     * @param RecipeAnalysisRepositoryInterface $repository
+     */
     public function __construct(
         private readonly RecipeAnalysisRepositoryInterface $repository,
     ) {}
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function index(Request $request): Response
     {
         $history = $this->repository->paginateForUser(

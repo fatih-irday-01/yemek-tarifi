@@ -10,13 +10,24 @@ use App\Services\AI\Contracts\RecipeAnalyzerInterface;
 use Illuminate\Support\Facades\Log;
 use RuntimeException;
 
+/**
+ *
+ */
 final class AnalyzeRecipePhotoAction
 {
+    /**
+     * @param RecipeAnalyzerInterface $analyzer
+     * @param RecipeAnalysisRepositoryInterface $repository
+     */
     public function __construct(
         private readonly RecipeAnalyzerInterface $analyzer,
         private readonly RecipeAnalysisRepositoryInterface $repository,
     ) {}
 
+    /**
+     * @param RecipeAnalysis $analysis
+     * @return void
+     */
     public function execute(RecipeAnalysis $analysis): void
     {
         $this->repository->markAsProcessing($analysis->id);

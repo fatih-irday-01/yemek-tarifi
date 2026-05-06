@@ -1,0 +1,37 @@
+# Bağımlılıklar
+node_modules/
+vendor/
+
+# Build ve Çıktı Dosyaları
+public/build/
+public/storage/
+dist/
+stats.json
+
+# Loglar ve Geçici Dosyalar
+storage/logs/*.log
+storage/framework/sessions/
+storage/framework/views/
+storage/framework/cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ortam ve Gizli Dosyalar
+.env
+.env.*
+.phpunit.result.cache
+
+# IDE ve Sistem Dosyaları
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+
+# Test Coverage
+tests/_output/
+tests/_support/_generated/

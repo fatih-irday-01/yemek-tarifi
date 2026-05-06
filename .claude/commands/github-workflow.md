@@ -29,10 +29,35 @@ Merge kararı her zaman kullanıcıya aittir.
 
 ---
 
+## Zorunlu Sıra — Bu Sıra Hiçbir Zaman Atlanamaz
+
+```
+1. Issue aç          → numara al (#N)
+2. Spec oluştur      → .claude/specs/ADR-N-kisa-aciklama.md
+3. Branch aç         → feature/N-kisa-aciklama
+4. Implementasyon    → QA → Backend → Frontend → DevOps
+5. PR aç             → [#N] feat/fix: kisa-aciklama
+```
+
+**Kural:** Issue numarası alınmadan branch açılmaz, branch açılmadan implementasyon başlamaz.
+
+---
+
+## İsimlendirme Formatı
+
+| Artefakt | Format | Örnek |
+|---|---|---|
+| Issue | `#N` | `#42` |
+| Spec/ADR | `ADR-N-kisa-aciklama` | `ADR-42-user-soft-delete` |
+| Branch | `feature/N-kisa-aciklama` | `feature/42-user-soft-delete` |
+| PR başlığı | `[#N] feat: kisa aciklama` | `[#42] feat: user soft delete` |
+
+---
+
 ## Standart Görev Akışı
 
 ### 1. Issue Aç
-Görevi GitHub issue olarak belgele:
+Görevi GitHub issue olarak belgele — implementasyona başlamadan önce:
 ```
 Başlık: [kısa, net görev adı]
 Body:
@@ -47,14 +72,32 @@ Body:
   [mimari karar, ilgili dosyalar, dikkat edilecekler]
 ```
 
-### 2. Branch Aç
+### 2. Spec Dosyası Oluştur
+`.claude/specs/ADR-<N>-<kisa-aciklama>.md` dosyasını oluştur:
 ```
-feature/<issue-no>-<kısa-açıklama>
-fix/<issue-no>-<kısa-açıklama>
-```
-Örnek: `feature/42-user-soft-delete-log`
+# ADR-N: [Görev Adı]
 
-### 3. Geliştirme Sürecinde Issue'yu Güncelle
+## Karar
+[ne yapılacak]
+
+## Gerekçe
+[neden bu yol seçildi]
+
+## Etkilenen Bileşenler
+[dosyalar, katmanlar]
+
+## Kabul Kriterleri
+- [ ] ...
+```
+
+### 3. Branch Aç
+```
+feature/<N>-<kisa-aciklama>
+fix/<N>-<kisa-aciklama>
+```
+Örnek: `feature/42-user-soft-delete`
+
+### 4. Geliştirme Sürecinde Issue'yu Güncelle
 Her önemli adımda issue'ya comment ekle:
 ```
 ## ✅ [adım adı] tamamlandı
@@ -63,22 +106,22 @@ Her önemli adımda issue'ya comment ekle:
 - Test: 4 senaryo yeşil
 ```
 
-### 4. PR Aç
+### 5. PR Aç
 ```
-Başlık: [#issue-no] [görev adı]
+Başlık: [#N] feat: kisa-aciklama
 Body:
-  Closes #<issue-no>
+  Closes #<N>
 
   ## Değişiklikler
   - [madde]
 
   ## Test
-  - [ ] Behat / Playwright testleri yeşil
+  - [ ] Testler yeşil
   - [ ] composer audit temiz
   - [ ] PHPStan hatasız
 ```
 
-### 5. DoD Tamamsa Issue'yu Kapat
+### 6. DoD Tamamsa Issue'yu Kapat
 Tüm kabul kriterleri karşılandığında issue'yu `closed` olarak işaretle.
 **PR'ı merge etme — bu adım kullanıcıya aittir.**
 

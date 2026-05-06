@@ -12,16 +12,29 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 final class RecipeAnalysisRepository implements RecipeAnalysisRepositoryInterface
 {
+    /**
+     * @param array $data
+     * @return RecipeAnalysis
+     */
     public function create(array $data): RecipeAnalysis
     {
         return RecipeAnalysis::create($data);
     }
 
+    /**
+     * @param int $id
+     * @return RecipeAnalysis|null
+     */
     public function findById(int $id): ?RecipeAnalysis
     {
         return RecipeAnalysis::find($id);
     }
 
+    /**
+     * @param int $id
+     * @param int $userId
+     * @return RecipeAnalysis|null
+     */
     public function findByIdForUser(int $id, int $userId): ?RecipeAnalysis
     {
         return RecipeAnalysis::where('id', $id)
@@ -29,11 +42,20 @@ final class RecipeAnalysisRepository implements RecipeAnalysisRepositoryInterfac
             ->first();
     }
 
+    /**
+     * @param int $id
+     * @return void
+     */
     public function markAsProcessing(int $id): void
     {
         RecipeAnalysis::where('id', $id)->update(['status' => AnalysisStatus::Processing]);
     }
 
+    /**
+     * @param int $id
+     * @param RecipeAnalysisResult $result
+     * @return void
+     */
     public function markAsCompleted(int $id, RecipeAnalysisResult $result): void
     {
         RecipeAnalysis::where('id', $id)->update([
@@ -45,6 +67,11 @@ final class RecipeAnalysisRepository implements RecipeAnalysisRepositoryInterfac
         ]);
     }
 
+    /**
+     * @param int $id
+     * @param string $errorMessage
+     * @return void
+     */
     public function markAsFailed(int $id, string $errorMessage): void
     {
         RecipeAnalysis::where('id', $id)->update([
@@ -53,6 +80,11 @@ final class RecipeAnalysisRepository implements RecipeAnalysisRepositoryInterfac
         ]);
     }
 
+    /**
+     * @param int $userId
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
     public function paginateForUser(int $userId, int $perPage = 15): LengthAwarePaginator
     {
         return RecipeAnalysis::where('user_id', $userId)
