@@ -4,6 +4,7 @@ import { Head, Link, usePage } from '@inertiajs/vue3';
 
 const page = usePage();
 const isAuthenticated = computed(() => !!page.props.auth?.user);
+const currentYear = computed(() => new Date().getFullYear());
 
 defineProps({
     canLogin: Boolean,
@@ -74,7 +75,7 @@ defineProps({
                     <p class="mt-6 text-lg text-gray-600">
                         Yemeğinin fotoğrafını yükle, yapay zeka saniyeler içinde malzemeleri, pişirme adımlarını ve besin değerlerini analiz etsin.
                     </p>
-                    <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+                    <div v-if="canLogin" class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                         <Link
                             v-if="canRegister"
                             :href="route('register')"
@@ -144,7 +145,7 @@ defineProps({
             <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-bold text-white">Hemen Deneyin</h2>
                 <p class="mt-4 text-lg text-accent">Ücretsiz hesap oluşturun, ilk analizinizi yapın.</p>
-                <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+                <div v-if="canLogin" class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                     <Link
                         v-if="canRegister"
                         :href="route('register')"
@@ -165,7 +166,7 @@ defineProps({
         <!-- Footer -->
         <footer class="border-t border-gray-100 py-8">
             <div class="mx-auto max-w-7xl px-4 text-center text-sm text-gray-400 sm:px-6 lg:px-8">
-                &copy; {{ new Date().getFullYear() }} Yemek Tarifi. Tüm hakları saklıdır.
+                &copy; {{ currentYear }} Yemek Tarifi. Tüm hakları saklıdır.
             </div>
         </footer>
     </div>
