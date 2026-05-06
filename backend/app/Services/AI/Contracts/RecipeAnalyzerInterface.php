@@ -8,5 +8,9 @@ use App\DTOs\RecipeAnalysisResult;
 
 interface RecipeAnalyzerInterface
 {
-    public function analyze(string $imageBase64, string $mimeType): RecipeAnalysisResult;
+    /**
+     * @param  string  $disk  Storage disk adı
+     * @param  string  $path  Disk üzerindeki dosya yolu
+     */
+    public function analyze(string $disk, string $path): RecipeAnalysisResult;
 }

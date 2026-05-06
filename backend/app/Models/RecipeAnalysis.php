@@ -16,6 +16,7 @@ final class RecipeAnalysis extends Model
     protected $fillable = [
         'user_id',
         'photo_path',
+        'photo_disk',
         'status',
         'food_name',
         'recipe',

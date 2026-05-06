@@ -7,7 +7,7 @@ use App\Services\AI\Adapters\FakeRecipeAnalyzer;
 
 test('fake analyzer geçerli result döner', function (): void {
     $analyzer = new FakeRecipeAnalyzer();
-    $result = $analyzer->analyze('base64data', 'image/jpeg');
+    $result = $analyzer->analyze('public', 'photos/test.jpg');
 
     expect($result)->toBeInstanceOf(RecipeAnalysisResult::class)
         ->and($result->foodName)->not->toBeEmpty()
@@ -17,7 +17,7 @@ test('fake analyzer geçerli result döner', function (): void {
 
 test('result toArray yemek adını içermez (food_name ayrı kaydedilir)', function (): void {
     $analyzer = new FakeRecipeAnalyzer();
-    $result = $analyzer->analyze('base64data', 'image/jpeg');
+    $result = $analyzer->analyze('public', 'photos/test.jpg');
 
     $array = $result->toArray();
 
