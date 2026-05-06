@@ -60,7 +60,7 @@ const showingNavigationDropdown = ref(false);
                                     class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 transition hover:border-primary/30 hover:text-primary focus:outline-none"
                                 >
                                     <div class="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
-                                        {{ $page.props.auth.user.name.charAt(0).toUpperCase() }}
+                                        {{ $page.props.auth.user.name?.charAt(0)?.toUpperCase() ?? '?' }}
                                     </div>
                                     {{ $page.props.auth.user.name }}
                                     <svg class="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
