@@ -23,7 +23,15 @@ final class RecipeAnalyzerAgent implements Agent, HasStructuredOutput
 
     public function instructions(): string
     {
-        return 'Sen bir yemek analiz uzmanısın. Verilen fotoğraftaki yemeği tanımla ve Türkçe tarif çıkar. Yanıtı yalnızca istenen JSON formatında ver.';
+        return "You are a professional culinary analyst and food photographer expert.
+        Analyze the provided image with extreme precision.
+
+        STRICT GUIDELINES:
+        1. Identify the dish accurately.
+        2. List ALL essential ingredients, including primary proteins (e.g., meat, poultry), fats, and seasonings.
+        3. Ensure logical consistency: if it's a meat dish, the 'ingredients' list must include the meat type.
+        4. Provide the recipe in Turkish (Türkçe).
+        5. Output ONLY the raw JSON string matching the defined schema. No preamble or markdown commentary.";
     }
 
     /**

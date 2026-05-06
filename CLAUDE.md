@@ -127,12 +127,22 @@ bash .claude/hooks/install.sh
 
 ## Proje Bağlamı
 
-> Yeni projede bu bölümü doldur.
-
 ### Proje Nedir?
+Yemek Tarifi uygulaması — kullanıcılar fotoğraf yükler, AI tarif analizi yapar ve tarif önerileri alır.
 
 ### Teknoloji Yığını
+- Backend: Laravel 13, PHP 8.4, Pest, PHPStan lvl 8
+- Frontend: Vue 3, Inertia.js, Tailwind CSS
+- AI: `laravel/ai` + Groq provider (`llama-3.2-90b-vision-preview`)
+- Altyapı: Docker monorepo — `app` (php-fpm) / `nginx` (8080) / `mysql:8.0` / `redis:7` / `queue` worker
+- Frontend build: host'ta `npm run build` → volume üzerinden serve
 
 ### Mimari Notlar
+- Monorepo: `backend/` + `frontend/` aynı repoda
+- Agent: `App\Ai\Agents\RecipeAnalyzerAgent` (structured output)
+- SESSION_ENCRYPT=true, Redis requirepass, ayrı DB_ROOT_PASSWORD
+- Renk paleti: Primary `#2D6A4F`, Accent `#95D5B2`
 
 ### Özel Kurallar
+- `GROQ_API_KEY` `.env` dosyasına girilmeli (varsayılan boş)
+- Production deploy: `docker-compose.prod.yml`

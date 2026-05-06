@@ -20,54 +20,6 @@ Aşağıdaki kurallar bağlayıcıdır. Yeni bir sayfa, bileşen veya özellik e
 
 ---
 
-## Dizin Yapısı
-
-```
-src/
-├── main.js                          # global bileşen kayıtları + plugin kurulumu
-├── axios.js                         # API kullanılıyorsa: tek axiosClient instance
-├── router/index.js                  # tüm route tanımları + beforeEach guard
-├── store/index.js                   # Vuex: state / mutations / actions / getters
-├── App.vue                          # layout switcher (auth durumuna göre)
-├── components/
-│   └── layouts/
-│       ├── forms/
-│       │   ├── inputs/
-│       │   │   ├── InputText.vue
-│       │   │   ├── InputTextarea.vue
-│       │   │   ├── SelectInput.vue
-│       │   │   ├── RadioButton.vue
-│       │   │   ├── DatePicker.vue
-│       │   │   ├── TimePicker.vue
-│       │   │   ├── ImageUpload.vue
-│       │   │   └── ImagePreview.vue
-│       │   ├── ButtonComponent.vue
-│       │   ├── LabelComponent.vue
-│       │   ├── SpanComponent.vue
-│       │   ├── Icon.vue
-│       │   └── CardTitleHead.vue
-│       ├── header/
-│       │   └── MainHeader.vue
-│       ├── sidebar/
-│       │   ├── MainSidebar.vue
-│       │   └── SidebarMenu.vue
-│       ├── AtomSpinner.vue
-│       ├── FilterTool.vue
-│       ├── ModalFooter.vue
-│       └── Pagination.vue
-└── views/
-    ├── Auth/
-    │   └── Login.vue
-    ├── Dashboard.vue
-    └── {Resource}/
-        ├── {Resource}.vue           # liste sayfası
-        ├── {Resource}Create.vue     # karmaşık oluşturma formu (ayrı sayfa)
-        ├── {Resource}Edit.vue       # karmaşık düzenleme formu (ayrı sayfa)
-        └── {Resource}Info.vue       # detay sayfası (opsiyonel)
-```
-
----
-
 ## Vue Bileşen Yazım Kuralları
 
 ### Script Setup (Tercihli)

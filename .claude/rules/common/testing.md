@@ -1,14 +1,15 @@
 ---
-description: Testing requirements — TDD workflow, 80% coverage, AAA pattern
-alwaysApply: true
+description: Testing — TDD workflow, 80% coverage, AAA pattern, test naming
+alwaysApply: false
+globs: ["**/tests/**", "**/*.test.*", "**/*.spec.*", "**/features/**", "**/*.feature"]
 ---
 
 # Testing
 
 ## Non-Negotiables
 - Minimum 80% test coverage (unit + feature). Enforced in CI.
-- **Write tests first** (RED → GREEN → REFACTOR). Not optional.
-- When tests fail: fix the implementation, not the test.
+- Write tests first (RED → GREEN → REFACTOR). Not optional.
+- Tests fail: fix the implementation, not the test.
 
 ## Test Types Required
 - **Unit**: isolated business logic, pure functions
@@ -16,23 +17,16 @@ alwaysApply: true
 - **E2E**: critical user workflows (Playwright for UI, Behat for API)
 
 ## Test Structure — Arrange-Act-Assert
-```
-Arrange: set up test data and preconditions
-Act:     execute the function/endpoint being tested
-Assert:  verify the expected outcome
-```
+- **Arrange**: test data and preconditions
+- **Act**: execute the function/endpoint
+- **Assert**: verify expected outcome
 
 ## Naming
-Test names must describe behavior, not implementation:
-- Good: `"returns empty array when no users match the filter"`
-- Bad: `"test_get_users"` or `"testUserFilter"`
+Test names describe behavior: `"returns empty array when no users match the filter"`
 
 ## TDD Workflow
-1. Write a failing test that describes the expected behavior (RED)
-2. Run it — confirm it fails for the right reason
-3. Write the minimal implementation to make it pass (GREEN)
-4. Refactor while keeping tests green (REFACTOR)
-5. Verify coverage meets threshold
-
-## Agent Support
-Use the **tdd-guide** agent (if available) for new features to enforce test-first methodology.
+1. Write failing test (RED)
+2. Confirm it fails for the right reason
+3. Minimal implementation to pass (GREEN)
+4. Refactor, keep tests green (REFACTOR)
+5. Verify coverage threshold met

@@ -1,44 +1,39 @@
 ---
-description: Feature development workflow — research first, plan, TDD, review, commit
+description: Feature development workflow — research, plan, TDD, review, commit
 alwaysApply: false
 ---
+
+<!-- Applies to: all files -->
 
 # Development Workflow
 
 ## Five-Phase Process (in order)
 
 ### 1. Research & Reuse
-Before writing any code:
-- Check if a pattern already exists in this codebase
-- Review library documentation to confirm API behavior
-- Prefer adopting a proven approach over writing net-new code
+- Check for existing patterns in the codebase first.
+- Confirm library API behavior before writing code.
+- Prefer proven approaches over net-new code.
 
 ### 2. Plan
-- Identify affected layers (DB, API, UI, infra)
-- Define the API contract before backend and frontend start
-- For architectural decisions, consult the **architect** agent
+- Identify affected layers (DB, API, UI, infra).
+- Define API contract before backend and frontend start.
+- Architectural decisions → consult **architect** agent.
 
 ### 3. Test-Driven Development
-Follow the RED → GREEN → REFACTOR cycle:
-1. QA writes failing tests first
-2. Backend/Frontend implements to make them pass
-3. Refactor while keeping tests green
-4. Verify 80%+ coverage
+Follow TDD — see `testing` rules.
 
 ### 4. Code Review
-- Run **security-reviewer** agent on any security-sensitive change
-- Address CRITICAL and HIGH issues before merge
-- Fix or document MEDIUM issues
+- Security-sensitive changes → run **security-reviewer** agent.
+- CRITICAL/HIGH issues: fix before merge.
+- MEDIUM issues: fix or document.
 
 ### 5. Commit & Push
-- Write commit messages explaining WHY (see git-workflow rules)
-- Ensure CI/CD passes
-- Resolve conflicts before requesting merge
+- Commit messages explain WHY (see git-workflow rules).
+- CI/CD must pass. Resolve conflicts before merge.
 
 ## Pre-Review Gates
-All of these must pass before requesting human review:
-- [ ] All tests green
-- [ ] No linting errors
-- [ ] No static analysis warnings (PHPStan/Psalm)
-- [ ] Security checklist complete
-- [ ] Coverage threshold met
+- All tests green
+- No linting errors
+- No static analysis warnings (PHPStan/Psalm)
+- Security checklist complete
+- Coverage threshold met
