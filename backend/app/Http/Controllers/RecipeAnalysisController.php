@@ -14,17 +14,30 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ *
+ */
 final class RecipeAnalysisController extends Controller
 {
+    /**
+     * @param RecipeAnalysisRepositoryInterface $repository
+     */
     public function __construct(
         private readonly RecipeAnalysisRepositoryInterface $repository,
     ) {}
 
+    /**
+     * @return Response
+     */
     public function create(): Response
     {
         return Inertia::render('Recipe/Upload');
     }
 
+    /**
+     * @param AnalyzeRecipeRequest $request
+     * @return RedirectResponse
+     */
     public function store(AnalyzeRecipeRequest $request): RedirectResponse
     {
         $path = $request->file('photo')->store('recipes/'.$request->user()->id, 'public');
@@ -41,6 +54,11 @@ final class RecipeAnalysisController extends Controller
         return redirect()->route('recipes.show', $analysis->id);
     }
 
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
     public function show(Request $request, int $id): Response
     {
         $analysis = $this->repository->findByIdForUser($id, $request->user()->id);
@@ -52,6 +70,11 @@ final class RecipeAnalysisController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
     public function status(Request $request, int $id): JsonResponse
     {
         $analysis = $this->repository->findByIdForUser($id, $request->user()->id);

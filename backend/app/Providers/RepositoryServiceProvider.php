@@ -12,6 +12,9 @@ use Illuminate\Support\ServiceProvider;
 
 final class RepositoryServiceProvider extends ServiceProvider
 {
+    /**
+     * @return void
+     */
     public function register(): void
     {
         $this->app->bind(RecipeAnalysisRepositoryInterface::class, RecipeAnalysisRepository::class);

@@ -6,13 +6,22 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ *
+ */
 final class AnalyzeRecipeRequest extends FormRequest
 {
+    /**
+     * @return bool
+     */
     public function authorize(): bool
     {
         return $this->user() !== null;
     }
 
+    /**
+     * @return array[]
+     */
     public function rules(): array
     {
         return [
@@ -20,6 +29,9 @@ final class AnalyzeRecipeRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
