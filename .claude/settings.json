@@ -22,6 +22,17 @@
   },
   "enableAllProjectMcpServers": true,
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "export GITHUB_PERSONAL_ACCESS_TOKEN=$(grep -E '^GITHUB_PERSONAL_ACCESS_TOKEN=' backend/.env 2>/dev/null | cut -d= -f2- | sed \"s/^[\\\"']//;s/[\\\"']$//\" | tr -d '\\r')"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "matcher": "",
